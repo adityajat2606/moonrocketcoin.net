@@ -40,7 +40,7 @@ function getLoginConfig(kind: ReturnType<typeof getProductKind>) {
       action: 'bg-[#8df0c8] text-[#07111f] hover:bg-[#77dfb8]',
       icon: ImageIcon,
       title: 'Enter the creator workspace',
-      body: 'Open your visual feed, creator profile, and publishing tools without dropping into a generic admin shell.',
+      body: 'Sign in to manage your account, listings, and saved items on moonrocketcoin.net.',
     }
   }
   return {

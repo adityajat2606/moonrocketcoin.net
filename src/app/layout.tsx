@@ -15,15 +15,15 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const { recipe, brandPack } = getFactoryState()
-  const hasLeftSidebarNav = true
+  const navLayout: 'topbar' | 'sidebar-left' | 'sidebar-right' = 'sidebar-right'
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         data-site-shell={recipe.homeLayout}
         data-motion-pack={recipe.motionPack}
-        data-nav-layout={hasLeftSidebarNav ? 'sidebar-left' : 'topbar'}
-        className={`${brandPack.bodyClassName} ${brandPack.fontClassName} ${brandPack.paletteClassName}${hasLeftSidebarNav ? ' factory-left-nav' : ''}`}
+        data-nav-layout={navLayout}
+        className={`${brandPack.bodyClassName} ${brandPack.fontClassName} ${brandPack.paletteClassName}`}
       >
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
           <AuthProvider>

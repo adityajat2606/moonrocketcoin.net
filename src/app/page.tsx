@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Bookmark, Building2, Compass, FileText, Globe2, Image as ImageIcon, LayoutGrid, MapPin, ShieldCheck, Tag, User } from 'lucide-react'
+import { ArrowRight, Bookmark, Building2, Compass, FileText, Globe2, Image as ImageIcon, LayoutGrid, MapPin, Search, ShieldCheck, Tag, User } from 'lucide-react'
 import { ContentImage } from '@/components/shared/content-image'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
@@ -72,30 +72,17 @@ function getPostMeta(post?: SitePost | null) {
   }
 }
 
-function getDirectoryTone(brandPack: string) {
-  if (brandPack === 'market-utility') {
-    return {
-      shell: 'bg-[#f5f7f1] text-[#1f2617]',
-      hero: 'bg-[linear-gradient(180deg,#eef4e4_0%,#f8faf4_100%)]',
-      panel: 'border border-[#d5ddc8] bg-white shadow-[0_24px_64px_rgba(64,76,34,0.08)]',
-      soft: 'border border-[#d5ddc8] bg-[#eff3e7]',
-      muted: 'text-[#5b664c]',
-      title: 'text-[#1f2617]',
-      badge: 'bg-[#1f2617] text-[#edf5dc]',
-      action: 'bg-[#1f2617] text-[#edf5dc] hover:bg-[#2f3a24]',
-      actionAlt: 'border border-[#d5ddc8] bg-white text-[#1f2617] hover:bg-[#eef3e7]',
-    }
-  }
+function getDirectoryTone(_brandPack: string) {
   return {
-    shell: 'bg-[#f8fbff] text-slate-950',
-    hero: 'bg-[linear-gradient(180deg,#eef6ff_0%,#ffffff_100%)]',
-    panel: 'border border-slate-200 bg-white shadow-[0_24px_64px_rgba(15,23,42,0.08)]',
-    soft: 'border border-slate-200 bg-slate-50',
-    muted: 'text-slate-600',
-    title: 'text-slate-950',
-    badge: 'bg-slate-950 text-white',
-    action: 'bg-slate-950 text-white hover:bg-slate-800',
-    actionAlt: 'border border-slate-200 bg-white text-slate-950 hover:bg-slate-100',
+    shell: 'bg-[#f3f0f0] text-neutral-950',
+    hero: 'bg-[linear-gradient(180deg,#ebe6e6_0%,#fff8f8_100%)]',
+    panel: 'border border-black/10 bg-white shadow-[0_22px_56px_rgba(0,0,0,0.07)]',
+    soft: 'border border-black/8 bg-[#ffeded]',
+    muted: 'text-neutral-600',
+    title: 'text-neutral-950',
+    badge: 'bg-neutral-950 text-white',
+    action: 'bg-[#cf0f47] text-white hover:bg-[#a30c39]',
+    actionAlt: 'border border-black/10 bg-white text-neutral-950 hover:bg-[#fff5f5]',
   }
 }
 
@@ -155,60 +142,61 @@ function DirectoryHome({ primaryTask, enabledTasks, listingPosts, classifiedPost
     <main>
       <section className={tone.hero}>
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-18">
-          <div className="grid gap-8 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-            <div>
-              <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
-                <Compass className="h-3.5 w-3.5" />
-                Local discovery product
-              </span>
-              <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-                Search businesses, compare options, and act fast without digging through generic feeds.
-              </h1>
-              <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
-
-              <div className={`mt-8 grid gap-3 rounded-[2rem] p-4 ${tone.panel} md:grid-cols-[1.25fr_0.8fr_auto]`}>
-                <div className="rounded-full bg-black/5 px-4 py-3 text-sm">What do you need today?</div>
-                <div className="rounded-full bg-black/5 px-4 py-3 text-sm">Choose area or city</div>
-                <Link href={primaryTask?.route || '/listings'} className={`inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                  Browse now
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
+          <div className="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+            <div className={`rounded-3xl border border-black/10 bg-white p-7 shadow-[0_22px_56px_rgba(0,0,0,0.07)] sm:p-9`}>
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="inline-flex items-center gap-2 rounded-full bg-neutral-950 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-white">
+                  <Compass className="h-3.5 w-3.5" />
+                  Moon Rocket Coin Directory
+                </span>
+                <span className="inline-flex items-center rounded-full border border-black/10 bg-[#fff5f5] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-neutral-700">
+                  Listing-first
+                </span>
               </div>
 
-              <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                {[
-                  ['Verified businesses', `${featuredListings.length || 3}+ highlighted surfaces`],
-                  ['Fast scan rhythm', 'More utility, less filler'],
-                  ['Action first', 'Call, visit, shortlist, compare'],
-                ].map(([label, value]) => (
-                  <div key={label} className={`rounded-[1.4rem] p-4 ${tone.soft}`}>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-70">{label}</p>
-                    <p className="mt-2 text-lg font-semibold">{value}</p>
-                  </div>
-                ))}
+              <h1 className="mt-6 text-5xl font-semibold tracking-[-0.06em] text-neutral-950 sm:text-6xl">
+                Find the business. Verify the details. Contact fast.
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-8 text-neutral-600">{SITE_CONFIG.description}</p>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Link href="/search" className="group inline-flex w-full items-center justify-between rounded-2xl border border-black/10 bg-white px-5 py-4 text-sm font-semibold text-neutral-900 hover:bg-[#fff5f5] sm:w-auto sm:min-w-[280px]">
+                  <span className="inline-flex items-center gap-2">
+                    <Search className="h-4 w-4 text-[#cf0f47]" />
+                    Search directory
+                  </span>
+                  <ArrowRight className="h-4 w-4 text-neutral-400 transition group-hover:translate-x-0.5 group-hover:text-neutral-700" />
+                </Link>
+                <Link href={primaryTask?.route || '/listings'} className="group inline-flex w-full items-center justify-between rounded-2xl bg-[#cf0f47] px-5 py-4 text-sm font-semibold text-white hover:bg-[#a30c39] sm:w-auto sm:min-w-[240px]">
+                  Browse listings
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-0.5" />
+                </Link>
               </div>
             </div>
 
-            <div className="grid gap-4">
-              <div className={`rounded-[2rem] p-6 ${tone.panel}`}>
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.22em] opacity-70">Primary lane</p>
-                    <h2 className="mt-2 text-3xl font-semibold">{primaryTask?.label || 'Listings'}</h2>
-                  </div>
-                  <ShieldCheck className="h-6 w-6" />
+            <div className="rounded-3xl border border-black/10 bg-white p-7 shadow-[0_22px_56px_rgba(0,0,0,0.07)]">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-neutral-500">Primary lane</p>
+              <div className="mt-3 flex items-start justify-between gap-4">
+                <div>
+                  <h2 className="text-3xl font-semibold tracking-[-0.04em] text-neutral-950">{primaryTask?.label || 'Listings'}</h2>
+                  <p className="mt-3 text-sm leading-7 text-neutral-600">{primaryTask?.description || SITE_CONFIG.description}</p>
                 </div>
-                <p className={`mt-4 text-sm leading-7 ${tone.muted}`}>{primaryTask?.description || 'Structured discovery for services, offers, and business surfaces.'}</p>
+                <div className="rounded-2xl border border-black/10 bg-[#fff5f5] p-3">
+                  <ShieldCheck className="h-6 w-6 text-[#cf0f47]" />
+                </div>
               </div>
-
-              <div className="grid gap-4 sm:grid-cols-2">
-                {quickRoutes.map((task) => {
+              <div className="mt-6 grid gap-3">
+                {quickRoutes.slice(0, 2).map((task) => {
                   const Icon = taskIcons[task.key as TaskKey] || LayoutGrid
                   return (
-                    <Link key={task.key} href={task.route} className={`rounded-[1.6rem] p-5 ${tone.soft}`}>
-                      <Icon className="h-5 w-5" />
-                      <h3 className="mt-4 text-lg font-semibold">{task.label}</h3>
-                      <p className={`mt-2 text-sm leading-7 ${tone.muted}`}>{task.description}</p>
+                    <Link key={task.key} href={task.route} className="group flex items-center justify-between rounded-2xl border border-black/10 bg-[#fffafa] px-5 py-4 hover:bg-white">
+                      <span className="inline-flex items-center gap-3">
+                        <span className="rounded-xl border border-black/10 bg-white p-2">
+                          <Icon className="h-4 w-4 text-[#cf0f47]" />
+                        </span>
+                        <span className="text-sm font-semibold text-neutral-900">{task.label}</span>
+                      </span>
+                      <ArrowRight className="h-4 w-4 text-neutral-400 transition group-hover:translate-x-0.5 group-hover:text-neutral-700" />
                     </Link>
                   )
                 })}
@@ -221,12 +209,12 @@ function DirectoryHome({ primaryTask, enabledTasks, listingPosts, classifiedPost
       <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between gap-4 border-b border-border pb-6">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Featured businesses</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Strong listings with clearer trust cues.</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Latest directory posts</p>
+            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Horizontal cards built for scanning.</h2>
           </div>
-          <Link href="/listings" className="text-sm font-semibold text-primary hover:opacity-80">Open listings</Link>
+          <Link href="/listings" className="text-sm font-semibold text-primary hover:opacity-80">All listings</Link>
         </div>
-        <div className="mt-8 grid gap-6 lg:grid-cols-3">
+        <div className="mt-8 flex max-w-5xl flex-col gap-5">
           {featuredListings.map((post) => (
             <TaskPostCard key={post.id} post={post} href={getTaskHref(featuredTaskKey, post.slug)} taskKey={featuredTaskKey} />
           ))}
@@ -237,11 +225,11 @@ function DirectoryHome({ primaryTask, enabledTasks, listingPosts, classifiedPost
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:px-8">
           <div className={`rounded-[2rem] p-7 ${tone.panel}`}>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">What makes this different</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Built like a business directory, not a recolored content site.</h2>
+            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Moon Rocket Coin is a separate product, not a renamed template.</h2>
             <ul className={`mt-6 space-y-3 text-sm leading-7 ${tone.muted}`}>
-              <li>Search-first hero instead of a magazine headline.</li>
-              <li>Action-oriented listing cards with trust metadata.</li>
-              <li>Support lanes for offers, businesses, and profiles.</li>
+              <li>Crimson-on-ink accents with pale pink surfaces—no purple “SaaS default.”</li>
+              <li>Listings and classifieds lead; every other task route still works by URL.</li>
+              <li>Imagery supports facts; carousel advances every 3s only when multiple images exist.</li>
             </ul>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
@@ -280,19 +268,19 @@ function EditorialHome({ primaryTask, articlePosts, supportTasks }: { primaryTas
           <div>
             <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
               <FileText className="h-3.5 w-3.5" />
-              Reading-first publication
+              Articles
             </span>
             <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-              Essays, analysis, and slower reading designed like a publication, not a dashboard.
+              Articles and long-form updates with a calmer reading rhythm.
             </h1>
             <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href={primaryTask?.route || '/articles'} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                Start reading
+                Browse articles
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/about" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                About the publication
+                About
               </Link>
             </div>
           </div>
@@ -355,19 +343,19 @@ function VisualHome({ primaryTask, imagePosts, profilePosts, articlePosts }: { p
           <div>
             <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
               <ImageIcon className="h-3.5 w-3.5" />
-              Visual publishing system
+              Image posts
             </span>
             <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-              Image-led discovery with creator profiles and a more gallery-like browsing rhythm.
+              Image-led posts and galleries.
             </h1>
             <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href={primaryTask?.route || '/image-sharing'} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                Open gallery
+                Browse images
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/profile" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                Meet creators
+                Browse profiles
               </Link>
             </div>
           </div>
@@ -421,19 +409,19 @@ function CurationHome({ primaryTask, bookmarkPosts, profilePosts, articlePosts }
           <div>
             <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${tone.badge}`}>
               <Bookmark className="h-3.5 w-3.5" />
-              Curated collections
+              Bookmarks
             </span>
             <h1 className={`mt-6 max-w-4xl text-5xl font-semibold tracking-[-0.06em] sm:text-6xl ${tone.title}`}>
-              Save, organize, and revisit resources through shelves, boards, and curated collections.
+              Save and revisit useful resources.
             </h1>
             <p className={`mt-6 max-w-2xl text-base leading-8 ${tone.muted}`}>{SITE_CONFIG.description}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href={primaryTask?.route || '/sbm'} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.action}`}>
-                Open collections
+                Browse bookmarks
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/profile" className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold ${tone.actionAlt}`}>
-                Explore curators
+                Browse profiles
               </Link>
             </div>
           </div>

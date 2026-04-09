@@ -7,6 +7,8 @@ import { normalizeCategory, isValidCategory } from "@/lib/categories";
 import type { TaskKey } from "@/lib/site-config";
 import type { SitePost } from "@/lib/site-connector";
 import { getLocalPostsForTask } from "@/lib/local-posts";
+import { getFactoryState } from "@/design/factory/get-factory-state";
+import { getProductKind } from "@/design/factory/get-product-kind";
 
 type Props = {
   task: TaskKey;
@@ -16,6 +18,10 @@ type Props = {
 
 export function TaskListClient({ task, initialPosts, category }: Props) {
   const localPosts = getLocalPostsForTask(task);
+  const { recipe } = getFactoryState();
+  const productKind = getProductKind(recipe);
+  const directoryRowLayout =
+    productKind === "directory" && (task === "listing" || task === "classified");
 
   const merged = useMemo(() => {
     const bySlug = new Set<string>();
@@ -61,7 +67,13 @@ export function TaskListClient({ task, initialPosts, category }: Props) {
   }
 
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div
+      className={
+        directoryRowLayout
+          ? "mx-auto flex max-w-5xl flex-col gap-5"
+          : "grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
+      }
+    >
       {merged.map((post) => {
         const localOnly = (post as any).localOnly;
         const href = localOnly

@@ -115,47 +115,82 @@ export function TaskPostCard({
   const isDirectorySurface = isDirectoryProduct && (variant === 'listing' || variant === 'classified' || variant === 'profile')
 
   if (isDirectorySurface) {
-    const cardTone = recipe.brandPack === 'market-utility'
-      ? {
-          frame: 'rounded-[1.75rem] border border-[#d7deca] bg-white shadow-[0_18px_44px_rgba(64,76,34,0.08)] hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(64,76,34,0.14)]',
-          badge: 'bg-[#1f2617] text-[#edf5dc]',
-          muted: 'text-[#5b664c]',
-          title: 'text-[#1f2617]',
-          cta: 'text-[#1f2617]',
-        }
-      : {
-          frame: 'rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_18px_44px_rgba(15,23,42,0.08)] hover:-translate-y-1 hover:shadow-[0_22px_50px_rgba(15,23,42,0.14)]',
-          badge: 'bg-slate-950 text-white',
-          muted: 'text-slate-600',
-          title: 'text-slate-950',
-          cta: 'text-slate-950',
-        }
+    const cardTone = {
+      frame:
+        'rounded-xl border border-black/10 bg-white shadow-[0_14px_40px_rgba(0,0,0,0.06)] hover:border-primary/25 hover:shadow-[0_18px_48px_rgba(207,15,71,0.08)]',
+      badge: 'border border-primary/30 bg-[#ffeded] text-[#8f0b32]',
+      pill: 'rounded-md bg-neutral-950 px-2 py-1 text-[9px] font-bold uppercase tracking-[0.16em] text-white',
+      muted: 'text-neutral-600',
+      title: 'text-neutral-950',
+      cta: 'text-primary',
+      tile: 'rounded-md border border-black/8 bg-[#fff7f7] px-2 py-2 text-center text-[11px] font-medium text-neutral-700',
+    }
+
+    const formatLabel = variant === 'classified' ? 'Classified' : variant === 'profile' ? 'Profile' : 'Listing'
 
     return (
-      <Link href={href} className={`group flex h-full flex-col overflow-hidden transition duration-300 ${cardTone.frame}`}>
-        <div className="relative aspect-[16/11] overflow-hidden bg-slate-100">
-          <ContentImage src={image} alt={altText} fill sizes={imageSizes} quality={75} className="object-cover transition-transform duration-500 group-hover:scale-[1.04]" intrinsicWidth={960} intrinsicHeight={720} />
-          <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4">
-            <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] ${cardTone.badge}`}>
-              <Tag className="h-3.5 w-3.5" />
+      <Link
+        href={href}
+        className={`group flex h-full w-full flex-col overflow-hidden transition duration-300 sm:flex-row sm:items-stretch ${cardTone.frame}`}
+      >
+        <div className="relative h-44 w-full shrink-0 overflow-hidden bg-muted sm:h-auto sm:min-h-[188px] sm:w-[min(34%,268px)]">
+          <ContentImage
+            src={image}
+            alt={altText}
+            fill
+            sizes="(max-width: 640px) 100vw, 280px"
+            quality={72}
+            className="object-cover opacity-95 transition duration-500 group-hover:scale-[1.03]"
+            intrinsicWidth={960}
+            intrinsicHeight={720}
+          />
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/45 to-transparent p-3 pt-10">
+            <span className={`inline-flex items-center gap-1 ${cardTone.badge} px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em]`}>
+              <Tag className="h-3 w-3" />
               {category}
-            </span>
-            <span className="rounded-full bg-white/85 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-900">
-              {variant === 'classified' ? 'Open now' : 'Verified'}
             </span>
           </div>
         </div>
-        <div className="flex flex-1 flex-col p-5">
-          <div className="flex items-center justify-between gap-3">
-            <h3 className={`line-clamp-2 text-xl font-semibold leading-snug ${cardTone.title}`}>{post.title}</h3>
-            <ArrowUpRight className={`h-5 w-5 shrink-0 ${cardTone.muted}`} />
+        <div className="flex min-w-0 flex-1 flex-col p-5 md:p-6">
+          <div className="flex flex-wrap items-start justify-between gap-3">
+            <h3 className={`line-clamp-2 text-lg font-semibold leading-snug tracking-[-0.02em] md:text-xl ${cardTone.title}`}>{post.title}</h3>
+            <span className={cardTone.pill}>{formatLabel}</span>
           </div>
-          <p className={`mt-3 line-clamp-3 text-sm leading-7 ${cardTone.muted}`}>{getExcerpt(content.description || post.summary) || 'Explore this local listing.'}</p>
-          <div className="mt-5 flex flex-wrap gap-3 text-xs">
-            {content.location ? <span className={`inline-flex items-center gap-1 ${cardTone.muted}`}><MapPin className="h-3.5 w-3.5" />{content.location}</span> : null}
-            {content.email ? <span className={`inline-flex items-center gap-1 ${cardTone.muted}`}><Mail className="h-3.5 w-3.5" />{content.email}</span> : null}
+          <div className="mt-4 grid grid-cols-3 gap-2">
+            <div className={cardTone.tile}>
+              <span className="block text-[9px] font-semibold uppercase tracking-wider text-neutral-500">Type</span>
+              <span className="mt-0.5 line-clamp-1 text-xs font-semibold text-neutral-900">{category}</span>
+            </div>
+            <div className={cardTone.tile}>
+              <span className="block text-[9px] font-semibold uppercase tracking-wider text-neutral-500">Area</span>
+              <span className="mt-0.5 line-clamp-1 text-xs font-semibold text-neutral-900">{content.location || '—'}</span>
+            </div>
+            <div className={cardTone.tile}>
+              <span className="block text-[9px] font-semibold uppercase tracking-wider text-neutral-500">Lane</span>
+              <span className="mt-0.5 line-clamp-1 text-xs font-semibold text-neutral-900">{formatLabel}</span>
+            </div>
           </div>
-          <div className={`mt-auto pt-5 text-sm font-semibold ${cardTone.cta}`}>{variant === 'classified' ? 'View offer' : 'View details'}</div>
+          <p className={`mt-4 line-clamp-3 text-sm leading-relaxed ${cardTone.muted}`}>
+            {getExcerpt(content.description || post.summary) || 'Structured entry on moonrocketcoin.net.'}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs">
+            {content.location ? (
+              <span className={`inline-flex items-center gap-1 ${cardTone.muted}`}>
+                <MapPin className="h-3.5 w-3.5 text-primary" />
+                {content.location}
+              </span>
+            ) : null}
+            {content.email ? (
+              <span className={`inline-flex max-w-[200px] items-center gap-1 truncate ${cardTone.muted}`}>
+                <Mail className="h-3.5 w-3.5 shrink-0 text-primary" />
+                {content.email}
+              </span>
+            ) : null}
+          </div>
+          <div className="mt-auto flex items-center justify-between border-t border-black/5 pt-4">
+            <span className={`text-sm font-semibold ${cardTone.cta}`}>{variant === 'classified' ? 'View offer' : 'View listing'}</span>
+            <ArrowUpRight className={`h-5 w-5 shrink-0 ${cardTone.muted} transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5`} />
+          </div>
         </div>
       </Link>
     )

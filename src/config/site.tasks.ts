@@ -11,9 +11,9 @@ export const siteTaskDefinitions = [
     key: 'classified',
     label: 'Classifieds',
     route: '/classifieds',
-    description: 'Local offers, jobs, and deals.',
+    description: 'Offers, gigs, and short-term notices.',
     contentType: 'classified',
-    enabled: false,
+    enabled: true,
   },
   {
     key: 'article',

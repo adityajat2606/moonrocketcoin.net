@@ -1,15 +1,15 @@
 import { defineSiteTheme } from '@/config/site.theme.defaults'
 
 export const SITE_THEME = defineSiteTheme({
-  shell: 'market',
+  shell: 'directory',
   hero: {
-    variant: 'catalog-promo',
-    eyebrow: 'Premium multi-surface publishing system',
+    variant: 'search-first',
+    eyebrow: 'moonrocketcoin.net listing directory',
   },
   home: {
-    layout: 'market-catalog',
+    layout: 'directory-stack',
     primaryTask: 'listing',
-    featuredTaskKeys: ['listing', 'classified', 'article'],
+    featuredTaskKeys: ['listing', 'classified'],
   },
   navigation: {
     variant: 'minimal',
