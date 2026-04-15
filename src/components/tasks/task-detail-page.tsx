@@ -229,7 +229,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
 
   if (productKind === "directory" && (task === "listing" || task === "classified" || task === "profile")) {
     return (
-      <div className="min-h-screen bg-[#f8fbff]">
+      <div className="min-h-screen bg-background text-foreground">
         <NavbarShell />
         <DirectoryTaskDetailPage
           task={task}
@@ -267,14 +267,14 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
         >
           <div className={cn(isClassified ? "space-y-8" : "")}>
             {isArticle ? (
-              <div className="mx-auto w-full max-w-4xl space-y-6">
-                <h1 className="text-4xl font-semibold leading-tight text-foreground">
+              <div className="mx-auto w-full max-w-3xl space-y-6">
+                <h1 className="text-4xl font-semibold leading-tight tracking-[-0.04em] text-foreground">
                   {post.title}
                 </h1>
                 <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
                   <span>By {articleAuthor}</span>
                   {articleDate ? <span>{articleDate}</span> : null}
-                  <Badge variant="secondary" className="inline-flex items-center gap-1">
+                  <Badge variant="secondary" className="inline-flex items-center gap-1 border-primary/20 bg-secondary">
                     <Tag className="h-3.5 w-3.5" />
                     {category}
                   </Badge>
@@ -282,7 +282,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                 {postTags.length ? (
                   <div className="flex flex-wrap gap-2">
                     {postTags.map((tag) => (
-                      <Badge key={tag} variant="outline">
+                      <Badge key={tag} variant="outline" className="border-border">
                         {tag}
                       </Badge>
                     ))}
@@ -291,15 +291,55 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
                 {articleSummary ? (
                   <p className="text-base leading-7 text-muted-foreground">{articleSummary}</p>
                 ) : null}
-                {images[0] ? (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-border bg-muted">
+
+                {(content.website || content.phone || content.email || location) ? (
+                  <div className="rounded-xl border-2 border-primary/25 bg-secondary/50 p-5 shadow-sm">
+                    <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-primary">Listing details</p>
+                    <div className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
+                      {content.website ? (
+                        <div className="flex items-start gap-2 rounded-lg bg-background/80 px-3 py-2">
+                          <Globe className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                          <a href={content.website} className="break-all font-medium text-foreground hover:underline" target="_blank" rel="noreferrer">
+                            {content.website}
+                          </a>
+                        </div>
+                      ) : null}
+                      {content.phone ? (
+                        <div className="flex items-start gap-2 rounded-lg bg-background/80 px-3 py-2">
+                          <Phone className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                          <span className="text-foreground">{content.phone}</span>
+                        </div>
+                      ) : null}
+                      {content.email ? (
+                        <div className="flex items-start gap-2 rounded-lg bg-background/80 px-3 py-2">
+                          <Mail className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                          <a href={`mailto:${content.email}`} className="break-all font-medium text-foreground hover:underline">
+                            {content.email}
+                          </a>
+                        </div>
+                      ) : null}
+                      {location ? (
+                        <div className="flex items-start gap-2 rounded-lg bg-background/80 px-3 py-2 sm:col-span-2">
+                          <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                          <span className="text-foreground">{location}</span>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                ) : null}
+
+                {images.length > 1 ? (
+                  <TaskImageCarousel images={images} autoplayMs={3000} compact />
+                ) : images[0] ? (
+                  <div className="relative mx-auto max-h-52 w-full max-w-xl overflow-hidden rounded-xl border border-border bg-muted">
                     <ContentImage
                       src={images[0]}
-                      alt={`${post.title} featured image`}
+                      alt={`${post.title} supporting image`}
                       fill
                       className="object-cover"
-                      intrinsicWidth={1600}
-                      intrinsicHeight={900}
+                      sizes="(max-width: 768px) 100vw, 560px"
+                      intrinsicWidth={1200}
+                      intrinsicHeight={630}
                     />
                   </div>
                 ) : null}
@@ -312,7 +352,10 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
               <>
                 {!isBookmark ? (
                   <div className={cn(isClassified ? "w-full" : "")}>
-                    <TaskImageCarousel images={images} />
+                    <TaskImageCarousel
+                      images={images}
+                      autoplayMs={images.length > 1 ? 3000 : undefined}
+                    />
                   </div>
                 ) : null}
 

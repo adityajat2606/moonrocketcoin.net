@@ -51,7 +51,7 @@ function getRegisterConfig(kind: ReturnType<typeof getProductKind>) {
     action: 'bg-[#5b2b3b] text-[#fff0f5] hover:bg-[#74364b]',
     icon: Bookmark,
     title: 'Create a curator account',
-    body: 'Build shelves, save references, and connect collections to your profile without a generic feed setup.',
+      body: 'Create an account to add listings, post classifieds, and manage your directory presence.',
   }
 }
 

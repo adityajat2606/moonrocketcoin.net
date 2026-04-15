@@ -2,110 +2,117 @@ import type { TaskKey } from '@/lib/site-config'
 
 export const siteContent = {
   navbar: {
-    tagline: 'Independent reading platform',
+    tagline: 'Business listings · moonrocketcoin.net',
   },
   footer: {
-    tagline: 'Stories, resources, and discoverable posts',
+    tagline: 'Verified listings and market intelligence',
   },
   hero: {
-    badge: 'Latest stories and visuals',
-    title: ['A thoughtful home for', 'stories, visuals, and discovery.'],
+    badge: 'Latest listings on Moon Rocket Coin',
+    title: ['A sharper directory for', 'businesses, venues, and Web3 operators.'],
     description:
-      'Explore fresh articles, image-led posts, and discoverable content across the platform through a calmer and clearer browsing experience.',
+      'Scan structured listings, compare trust signals, and move from discovery to contact without noisy feeds or generic marketplace chrome.',
     primaryCta: {
-      label: 'Read latest stories',
-      href: '/articles',
+      label: 'Browse business listings',
+      href: '/listings',
     },
     secondaryCta: {
-      label: 'Explore visuals',
-      href: '/image-sharing',
+      label: 'View classifieds',
+      href: '/classifieds',
     },
-    searchPlaceholder: 'Search stories, visuals, listings, and more',
+    searchPlaceholder: 'Search listings, categories, cities, and businesses',
     focusLabel: 'Focus',
-    featureCardBadge: 'latest cover rotation',
-    featureCardTitle: 'Latest posts shape the visual identity of the homepage.',
+    featureCardBadge: 'live directory feed',
+    featureCardTitle: 'New and updated listings stay in rotation on the homepage.',
     featureCardDescription:
-      'Recent images and stories stay at the center of the experience without changing any core platform behavior.',
+      'The feed prioritizes fresh posts so returning visitors see movement—without changing how underlying tasks or APIs behave.',
   },
   home: {
     metadata: {
-      title: 'Stories, visuals, and discoverable content',
+      title: 'Moon Rocket Coin — business listings & classifieds',
       description:
-        'Explore articles, images, listings, and curated posts through a cleaner reading-first experience.',
-      openGraphTitle: 'Stories, visuals, and discoverable content',
+        'moonrocketcoin.net is a listing-first directory for businesses, services, and timely classified posts with a minimal, data-forward layout.',
+      openGraphTitle: 'Moon Rocket Coin — business listings & classifieds',
       openGraphDescription:
-        'Discover articles, visual posts, and connected content through a calmer reading-first experience.',
-      keywords: ['story platform', 'article site', 'visual content', 'content discovery'],
+        'Discover verified-style business listings and classifieds on moonrocketcoin.net with clear metadata and fast scanning.',
+      keywords: [
+        'moonrocketcoin',
+        'business listings',
+        'classifieds',
+        'directory',
+        'Web3 business',
+        'local discovery',
+      ],
     },
-    introBadge: 'About the platform',
-    introTitle: 'Built for reading, browsing, and connecting different kinds of content.',
+    introBadge: 'About this directory',
+    introTitle: 'Built for operators who want listings to read like serious business data.',
     introParagraphs: [
-      'This site brings together article-style reading, visual browsing, and structured discovery so visitors can move naturally between different content types.',
-      'Instead of separating stories, visuals, and supporting resources into disconnected surfaces, the platform keeps them connected in one place with consistent navigation and easier exploration.',
-      'Whether someone starts with a story, an image-led post, a listing, or a resource page, they can keep discovering related content without friction.',
+      'Moon Rocket Coin foregrounds structured business entries: category, location, contact paths, and supporting context in one calm surface.',
+      'Classifieds stay available as a secondary lane for time-sensitive offers without crowding the primary listing experience.',
+      'Every task route from the base platform remains available; navigation simply emphasizes what this site is for.',
     ],
     sideBadge: 'At a glance',
     sidePoints: [
-      'Reading-first homepage with stronger emphasis on stories and imagery.',
-      'Connected sections for articles, visuals, listings, and supporting resources.',
-      'Cleaner browsing rhythm designed to make exploration feel easier.',
-      'Lightweight interactions that keep the experience fast and readable.',
+      'Listing-heavy homepage with horizontal, scan-friendly cards.',
+      'Black, crimson, and pale pink system tuned for contrast and restraint.',
+      'Secondary lanes and resources linked from the footer and search.',
+      'Lightweight motion—no heavy scripts for decoration.',
     ],
     primaryLink: {
-      label: 'Browse articles',
-      href: '/articles',
+      label: 'Open listings',
+      href: '/listings',
     },
     secondaryLink: {
-      label: 'See visuals',
-      href: '/image-sharing',
+      label: 'Browse classifieds',
+      href: '/classifieds',
     },
   },
   cta: {
-    badge: 'Start exploring',
-    title: 'Explore articles, visuals, and resources through one connected experience.',
+    badge: 'List or inquire',
+    title: 'Put your business on the Moon Rocket Coin directory.',
     description:
-      'Move between articles, image-led posts, listings, and resources through one clearer and more connected visual system.',
+      'Register to add a listing, or contact the team if you need a structured presence alongside classifieds and other supported formats.',
     primaryCta: {
-      label: 'Get Started Free',
+      label: 'Create account',
       href: '/register',
     },
     secondaryCta: {
-      label: 'Contact Sales',
+      label: 'Contact',
       href: '/contact',
     },
   },
   taskSectionHeading: 'Latest {label}',
-  taskSectionDescriptionSuffix: 'Browse the newest posts in this section.',
+  taskSectionDescriptionSuffix: 'Newest entries in this section.',
 } as const
 
 export const taskPageMetadata: Record<Exclude<TaskKey, 'comment' | 'org' | 'social'>, { title: string; description: string }> = {
   article: {
-    title: 'Articles and stories',
-    description: 'Read articles, stories, guides, and long-form posts across topics and interests.',
+    title: 'Articles',
+    description: 'Long-form notes and updates from the Moon Rocket Coin network.',
   },
   listing: {
-    title: 'Listings and discoverable pages',
-    description: 'Explore listings, services, brands, and structured pages organized for easier browsing.',
+    title: 'Business listings',
+    description: 'Structured business and service listings on moonrocketcoin.net.',
   },
   classified: {
-    title: 'Classifieds and announcements',
-    description: 'Browse classifieds, offers, notices, and time-sensitive posts across categories.',
+    title: 'Classifieds',
+    description: 'Offers, notices, and short-term opportunities alongside the main directory.',
   },
   image: {
-    title: 'Image sharing and visual posts',
-    description: 'Explore image-led posts, galleries, and visual stories from across the platform.',
+    title: 'Image sharing',
+    description: 'Visual posts and galleries when enabled for this deployment.',
   },
   profile: {
-    title: 'Profiles and public pages',
-    description: 'Discover public profiles, brand pages, and identity-focused posts in one place.',
+    title: 'Profiles',
+    description: 'Public profiles and organization-style pages.',
   },
   sbm: {
-    title: 'Curated links and saved resources',
-    description: 'Browse useful links, saved references, and curated resources organized for discovery.',
+    title: 'Bookmarks',
+    description: 'Curated links and saved resources.',
   },
   pdf: {
-    title: 'PDFs and downloadable resources',
-    description: 'Open reports, documents, and downloadable resources shared across the platform.',
+    title: 'PDF library',
+    description: 'Documents and downloadable resources.',
   },
 }
 
@@ -114,133 +121,109 @@ export const taskIntroCopy: Record<
   { title: string; paragraphs: string[]; links: { label: string; href: string }[] }
 > = {
   listing: {
-    title: 'Listings, services, and structured pages',
+    title: 'Business listings',
     paragraphs: [
-      'Explore listings, services, brands, and discoverable pages across categories. Each entry is organized to make browsing clearer and help visitors quickly understand what a post offers.',
-      'Listings connect naturally with articles, images, resources, and other content types so supporting information stays easy to reach from the same platform.',
-      'Browse by category to compare posts in context, discover related content, and move between formats without losing your place.',
+      'Each entry is laid out for quick comparison: category, geography, and contact paths read before imagery.',
+      'Listings stay connected to the rest of the platform’s tasks, but this surface is tuned for operators and researchers.',
+      'Use filters to narrow categories, then open a detail page for the full fact pattern.',
     ],
     links: [
-      { label: 'Read articles', href: '/articles' },
-      { label: 'Explore classifieds', href: '/classifieds' },
-      { label: 'View profiles', href: '/profile' },
+      { label: 'Classifieds', href: '/classifieds' },
+      { label: 'Search', href: '/search' },
+      { label: 'Home', href: '/' },
     ],
   },
   article: {
-    title: 'Articles, stories, and long-form reading',
+    title: 'Articles & briefings',
     paragraphs: [
-      'This section is built for stories, explainers, guides, and long-form reading across topics and interests.',
-      'Articles connect with listings, images, resources, and other content types so deeper reading can lead naturally into related discovery.',
-      'Use this section to browse thoughtful posts, revisit useful writing, and move into supporting content when you want more context.',
+      'Articles use a different rhythm from listings: typography leads, imagery stays supportive.',
+      'When a story references a business or venue, details are surfaced in a listing-style panel for consistency.',
     ],
     links: [
-      { label: 'Explore listings', href: '/listings' },
-      { label: 'Open image sharing', href: '/image-sharing' },
-      { label: 'Browse resources', href: '/pdf' },
+      { label: 'Listings', href: '/listings' },
+      { label: 'Classifieds', href: '/classifieds' },
+      { label: 'PDFs', href: '/pdf' },
     ],
   },
   classified: {
-    title: 'Classifieds, offers, and timely updates',
+    title: 'Classifieds board',
     paragraphs: [
-      'Classified posts help surface offers, notices, deals, and time-sensitive opportunities in a faster-scanning format.',
-      'They work well alongside articles, listings, and profiles, making it easier to connect short-term posts with more structured content.',
-      'Browse by category to find announcements quickly, then continue into related sections when you need more detail.',
+      'Short, time-sensitive posts sit in a compact board format next to the main listing directory.',
+      'Use this lane for offers, gigs, and notices that should not be buried in long-form pages.',
     ],
     links: [
       { label: 'Business listings', href: '/listings' },
-      { label: 'Read articles', href: '/articles' },
-      { label: 'View profiles', href: '/profile' },
+      { label: 'Search', href: '/search' },
     ],
   },
   image: {
-    title: 'Image-led posts and visual stories',
+    title: 'Visual feed',
     paragraphs: [
-      'Image sharing highlights visual posts, galleries, and story-led content where imagery plays the lead role.',
-      'These posts connect with articles, listings, and other sections so visuals can act as entry points into deeper content.',
-      'Browse the latest visual updates, then continue into related stories or supporting pages for more context.',
+      'Image-first posts use larger media modules and a darker shell so they feel distinct from the listing directory.',
     ],
     links: [
-      { label: 'Read articles', href: '/articles' },
-      { label: 'Explore listings', href: '/listings' },
-      { label: 'Open classifieds', href: '/classifieds' },
+      { label: 'Listings', href: '/listings' },
+      { label: 'Articles', href: '/articles' },
     ],
   },
   profile: {
-    title: 'Profiles, identities, and public pages',
+    title: 'Profiles',
     paragraphs: [
-      'Profiles capture the identity behind a business, creator, brand, or project and help visitors understand who is behind the content they are exploring.',
-      'These pages work as trust anchors across the site and connect naturally with stories, listings, documents, and other post types.',
-      'Browse profiles to understand people and brands more clearly, then continue into related content from the same source.',
+      'Identity surfaces for people, brands, and teams—framed separately from listing cards.',
     ],
     links: [
-      { label: 'Open listings', href: '/listings' },
-      { label: 'Read articles', href: '/articles' },
-      { label: 'Browse image sharing', href: '/image-sharing' },
+      { label: 'Listings', href: '/listings' },
+      { label: 'Articles', href: '/articles' },
     ],
   },
   sbm: {
-    title: 'Curated links and bookmarked resources',
+    title: 'Saved resources',
     paragraphs: [
-      'This section collects useful links, references, tools, and saved resources in a text-first browsing format.',
-      'Bookmarks stay connected to the rest of the platform, making it easier to move from a saved link into related stories, listings, or resources.',
-      'Use this section to organize helpful sources and discover connected content without leaving the broader site experience.',
+      'Bookmarks and curated links in a text-forward layout that avoids directory card chrome.',
     ],
     links: [
-      { label: 'Browse articles', href: '/articles' },
-      { label: 'Explore listings', href: '/listings' },
-      { label: 'Open PDFs', href: '/pdf' },
+      { label: 'Articles', href: '/articles' },
+      { label: 'Listings', href: '/listings' },
     ],
   },
   pdf: {
-    title: 'PDFs, documents, and downloadable files',
+    title: 'Documents',
     paragraphs: [
-      'The PDF library hosts reports, guides, downloadable files, and longer-form document resources that support reading and discovery.',
-      'These resources work alongside stories, listings, and profiles, helping document-style content stay connected to the rest of the platform.',
-      'Browse by category to find relevant files quickly, then continue into related sections when you want more context.',
+      'PDFs and downloads with a grid suited to file-style previews.',
     ],
     links: [
-      { label: 'Read articles', href: '/articles' },
-      { label: 'See listings', href: '/listings' },
-      { label: 'Explore profiles', href: '/profile' },
+      { label: 'Articles', href: '/articles' },
+      { label: 'Listings', href: '/listings' },
     ],
   },
   social: {
-    title: 'Short updates and community signals',
+    title: 'Short updates',
     paragraphs: [
-      'Short updates add quick signals that keep activity flowing across the platform.',
-      'They work well with stories, listings, and resources by helping visitors move from brief updates into deeper content.',
-      'Use these posts as lightweight entry points into the broader site experience.',
+      'Brief community signals that complement longer content types.',
     ],
     links: [
-      { label: 'Open listings', href: '/listings' },
-      { label: 'Read articles', href: '/articles' },
-      { label: 'View PDFs', href: '/pdf' },
+      { label: 'Listings', href: '/listings' },
+      { label: 'Articles', href: '/articles' },
     ],
   },
   comment: {
-    title: 'Comments and contextual responses',
+    title: 'Comments',
     paragraphs: [
-      'Comments surface responses connected directly to articles and help keep discussion close to the writing it belongs to.',
-      'This layer adds perspective and reaction without needing a separate standalone content format.',
-      'Use comments as supporting context beneath stories, then continue exploring related content from the same topic area.',
+      'Threaded responses tied to articles and other supported content.',
     ],
     links: [
-      { label: 'Explore articles', href: '/articles' },
-      { label: 'View listings', href: '/listings' },
-      { label: 'See classifieds', href: '/classifieds' },
+      { label: 'Articles', href: '/articles' },
+      { label: 'Listings', href: '/listings' },
     ],
   },
   org: {
-    title: 'Organizations, teams, and structured entities',
+    title: 'Organizations',
     paragraphs: [
-      'Organization pages provide structured identity surfaces for teams, brands, communities, and agencies.',
-      'Used with listings, stories, profiles, and resources, they help create stronger structure across the platform.',
-      'Connect organization pages with related content to build a clearer and more unified site presence.',
+      'Team and entity pages with structured fields aligned to the directory tone.',
     ],
     links: [
-      { label: 'Business listings', href: '/listings' },
-      { label: 'Read articles', href: '/articles' },
-      { label: 'PDF library', href: '/pdf' },
+      { label: 'Listings', href: '/listings' },
+      { label: 'Articles', href: '/articles' },
     ],
   },
 }

@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Search, Menu, X, User, FileText, Building2, LayoutGrid, Tag, Image as ImageIcon, ChevronRight, Sparkles, MapPin, Plus } from 'lucide-react'
+import { Search, Menu, X, User, FileText, Building2, LayoutGrid, Tag, Image as ImageIcon, ChevronRight, Sparkles, MapPin, Plus, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/lib/auth-context'
 import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
@@ -66,25 +66,15 @@ const variantClasses = {
   },
 } as const
 
-const directoryPalette = {
-  'directory-clean': {
-    shell: 'border-b border-slate-200 bg-white/94 text-slate-950 shadow-[0_1px_0_rgba(15,23,42,0.04)] backdrop-blur-xl',
-    logo: 'rounded-2xl border border-slate-200 bg-slate-50',
-    nav: 'text-slate-600 hover:text-slate-950',
-    search: 'border border-slate-200 bg-slate-50 text-slate-600',
-    cta: 'bg-slate-950 text-white hover:bg-slate-800',
-    post: 'border border-slate-200 bg-white text-slate-950 hover:bg-slate-50',
-    mobile: 'border-t border-slate-200 bg-white',
-  },
-  'market-utility': {
-    shell: 'border-b border-[#d7deca] bg-[#f4f6ef]/96 text-[#1f2617] shadow-[0_1px_0_rgba(64,76,34,0.06)] backdrop-blur-xl',
-    logo: 'rounded-xl border border-[#d7deca] bg-white',
-    nav: 'text-[#56604b] hover:text-[#1f2617]',
-    search: 'border border-[#d7deca] bg-white text-[#56604b]',
-    cta: 'bg-[#1f2617] text-[#edf5dc] hover:bg-[#2f3a24]',
-    post: 'border border-[#d7deca] bg-white text-[#1f2617] hover:bg-[#eef2e4]',
-    mobile: 'border-t border-[#d7deca] bg-[#f4f6ef]',
-  },
+/** Moon Rocket Coin — listing directory chrome (distinct from base “directory-clean” green/slate defaults). */
+const moonDirectoryPalette = {
+  shell: 'border-b border-black/10 bg-[#fffafa]/95 text-neutral-950 shadow-[0_1px_0_rgba(0,0,0,0.04)] backdrop-blur-xl',
+  logo: 'rounded-xl border border-black/10 bg-white shadow-sm',
+  nav: 'text-neutral-600 hover:text-neutral-950',
+  search: 'border border-black/10 bg-[#fff5f5] text-neutral-700',
+  cta: 'bg-[#cf0f47] text-white hover:bg-[#a30c39]',
+  post: 'border border-black/10 bg-white text-neutral-950 hover:bg-[#fff5f5]',
+  mobile: 'border-t border-black/10 bg-[#fffafa]',
 } as const
 
 export function Navbar() {
@@ -96,8 +86,17 @@ export function Navbar() {
   const pathname = usePathname()
   const { isAuthenticated } = useAuth()
   const { recipe } = getFactoryState()
+  const isDirectoryProduct = recipe.homeLayout === 'listing-home' || recipe.homeLayout === 'classified-home'
 
-  const navigation = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'profile'), [])
+  const navigation = useMemo(
+    () =>
+      SITE_CONFIG.tasks.filter((task) => {
+        if (!task.enabled || task.key === 'profile') return false
+        if (isDirectoryProduct && task.key === 'classified') return false
+        return true
+      }),
+    [isDirectoryProduct],
+  )
   const primaryNavigation = navigation.slice(0, 5)
   const mobileNavigation = navigation.map((task) => ({
     name: task.label,
@@ -105,33 +104,38 @@ export function Navbar() {
     icon: taskIcons[task.key] || LayoutGrid,
   }))
   const primaryTask = SITE_CONFIG.tasks.find((task) => task.key === recipe.primaryTask && task.enabled) || primaryNavigation[0]
-  const isDirectoryProduct = recipe.homeLayout === 'listing-home' || recipe.homeLayout === 'classified-home'
 
   if (isDirectoryProduct) {
-    const palette = directoryPalette[(recipe.brandPack === 'market-utility' ? 'market-utility' : 'directory-clean') as keyof typeof directoryPalette]
+    const palette = moonDirectoryPalette
 
     return (
       <>
-        <header className={cn('sticky top-0 z-50 w-full xl:hidden', palette.shell)}>
-          <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+        <header data-mobile-nav="true" className={cn('fixed inset-x-0 top-0 z-50 w-full xl:hidden', palette.shell)}>
+          <nav className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
             <div className="flex min-w-0 items-center gap-3">
               <Link href="/" className="flex min-w-0 items-center gap-3">
                 <div className={cn('flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden p-1.5', palette.logo)}>
-                  <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="44" height="44" className="h-full w-full object-contain" />
+                  <img src="/favicon.png?v=20260415" alt={`${SITE_CONFIG.name} logo`} width="44" height="44" className="h-full w-full object-contain" />
                 </div>
                 <div className="min-w-0">
-                  <span className="block truncate text-lg font-semibold">{SITE_CONFIG.name}</span>
-                  <span className="block truncate text-[10px] uppercase tracking-[0.22em] opacity-60">{siteContent.navbar.tagline}</span>
+                  <span className="block truncate text-base font-semibold tracking-[-0.02em]">{SITE_CONFIG.name}</span>
+                  <span className="block truncate text-[10px] font-semibold uppercase tracking-[0.22em] opacity-60">{siteContent.navbar.tagline}</span>
                 </div>
               </Link>
             </div>
 
             <div className="flex shrink-0 items-center gap-2">
+              <Button size="sm" asChild className={cn('rounded-full px-4', palette.search)}>
+                <Link href="/search">
+                  <Search className="mr-2 h-4 w-4" />
+                  Search
+                </Link>
+              </Button>
               {!isAuthenticated ? (
                 <Button size="sm" asChild className={cn('rounded-full', palette.cta)}>
                   <Link href="/register">
                     <Plus className="mr-1 h-4 w-4" />
-                    Add Listing
+                    Add
                   </Link>
                 </Button>
               ) : (
@@ -146,10 +150,10 @@ export function Navbar() {
           {isMobileMenuOpen && (
             <div className={palette.mobile}>
               <div className="space-y-2 px-4 py-4">
-                <div className={cn('mb-3 flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium', palette.search)}>
-                  <Search className="h-4 w-4" />
-                  Find businesses, spaces, and services
-                </div>
+                <Link href={primaryTask?.route || '/listings'} onClick={() => setIsMobileMenuOpen(false)} className="mb-3 inline-flex w-full items-center justify-between rounded-2xl bg-[#cf0f47] px-4 py-3 text-sm font-semibold text-white">
+                  Browse {primaryTask?.label || 'Listings'}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
                 {mobileNavigation.map((item) => {
                   const isActive = pathname.startsWith(item.href)
                   return (
@@ -164,34 +168,30 @@ export function Navbar() {
           )}
         </header>
 
-        <aside className={cn('hidden xl:fixed xl:inset-y-0 xl:left-0 xl:z-40 xl:flex xl:w-80 xl:flex-col xl:border-r xl:px-6 xl:py-7', palette.shell)}>
+        <aside className={cn('hidden xl:fixed xl:inset-y-0 xl:right-0 xl:z-40 xl:flex xl:w-80 xl:flex-col xl:border-l xl:px-6 xl:py-7', palette.shell)}>
           <div className="flex h-full flex-col">
             <Link href="/" className="flex items-center gap-3">
               <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden p-1.5', palette.logo)}>
-                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+                <img src="/favicon.png?v=20260415" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
               </div>
               <div className="min-w-0">
-                <span className="block truncate text-xl font-semibold">{SITE_CONFIG.name}</span>
-                <span className="block truncate text-[10px] uppercase tracking-[0.24em] opacity-60">{siteContent.navbar.tagline}</span>
+                <span className="block truncate text-xl font-semibold tracking-[-0.03em]">{SITE_CONFIG.name}</span>
+                <span className="block truncate text-[10px] font-semibold uppercase tracking-[0.24em] text-neutral-500">{siteContent.navbar.tagline}</span>
               </div>
             </Link>
 
-            <div className={cn('mt-7 flex items-center gap-3 rounded-[1.4rem] px-4 py-3 text-sm', palette.search)}>
-              <Search className="h-4 w-4 shrink-0" />
-              <div className="min-w-0">
-                <div className="truncate font-medium">Find local businesses</div>
-                <div className="truncate text-xs opacity-70">Search by service, category, or city</div>
-              </div>
+            <div className="mt-7 grid gap-2">
+              <Link href="/search" className="flex items-center justify-between rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-neutral-900 hover:bg-[#fff5f5]">
+                <span className="inline-flex items-center gap-2"><Search className="h-4 w-4 text-[#cf0f47]" /> Search directory</span>
+                <ChevronRight className="h-4 w-4 opacity-50" />
+              </Link>
+              <Link href={primaryTask?.route || '/listings'} className="flex items-center justify-between rounded-2xl bg-[#cf0f47] px-4 py-3 text-sm font-semibold text-white hover:bg-[#a30c39]">
+                <span className="inline-flex items-center gap-2"><Sparkles className="h-4 w-4" /> Browse</span>
+                <ArrowRight className="h-4 w-4" />
+              </Link>
             </div>
 
-            {primaryTask ? (
-              <Link href={primaryTask.route} className="mt-5 inline-flex items-center gap-2 self-start rounded-full border border-current/10 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] opacity-75">
-                <Sparkles className="h-3.5 w-3.5" />
-                {primaryTask.label}
-              </Link>
-            ) : null}
-
-            <nav className="mt-8 space-y-2">
+            <nav className="mt-7 space-y-2">
               {primaryNavigation.map((task) => {
                 const isActive = pathname.startsWith(task.route)
                 const Icon = taskIcons[task.key] || LayoutGrid
@@ -201,25 +201,16 @@ export function Navbar() {
                     href={task.route}
                     className={cn(
                       'flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition-colors',
-                      isActive ? 'bg-foreground text-background' : palette.post,
+                      isActive ? 'bg-neutral-950 text-white' : 'border border-black/10 bg-white text-neutral-900 hover:bg-[#fff5f5]',
                     )}
                   >
-                    <Icon className="h-4 w-4 shrink-0" />
+                    <Icon className={cn('h-4 w-4 shrink-0', isActive ? 'text-[#ffdeee]' : 'text-[#cf0f47]')} />
                     <span className="truncate">{task.label}</span>
+                    <ChevronRight className={cn('ml-auto h-4 w-4', isActive ? 'opacity-60' : 'opacity-35')} />
                   </Link>
                 )
               })}
             </nav>
-
-            <div className="mt-8 grid gap-3">
-              <div className={cn('rounded-[1.6rem] px-4 py-4 text-sm', palette.post)}>
-                <div className="flex items-center gap-2 font-semibold">
-                  <MapPin className="h-4 w-4" />
-                  Local discovery
-                </div>
-                <p className="mt-2 text-xs leading-6 opacity-75">Use business listings, classifieds, and support lanes without cramped top navigation.</p>
-              </div>
-            </div>
 
             <div className="mt-auto space-y-3 pt-8">
               {isAuthenticated ? (
@@ -229,7 +220,7 @@ export function Navbar() {
                   <Button variant="ghost" size="sm" asChild className="w-full justify-center rounded-full px-4">
                     <Link href="/login">Sign In</Link>
                   </Button>
-                  <Button size="sm" asChild className={cn('w-full justify-center rounded-full', palette.cta)}>
+                  <Button size="sm" asChild className={cn('w-full justify-center rounded-xl', palette.cta)}>
                     <Link href="/register">
                       <Plus className="mr-1 h-4 w-4" />
                       Add Listing
@@ -256,7 +247,7 @@ export function Navbar() {
           <div className="flex min-w-0 items-center gap-3">
             <Link href="/" className="flex min-w-0 items-center gap-3">
               <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden p-1.5', style.logo)}>
-                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+                <img src="/favicon.png?v=20260415" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
               </div>
               <div className="min-w-0">
                 <span className="block truncate text-lg font-semibold">{SITE_CONFIG.name}</span>
@@ -303,7 +294,7 @@ export function Navbar() {
         <div className="flex h-full flex-col">
           <Link href="/" className="flex items-center gap-3">
             <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden p-1.5', style.logo)}>
-              <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+              <img src="/favicon.png?v=20260415" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
             </div>
             <div className="min-w-0">
               <span className="block truncate text-xl font-semibold">{SITE_CONFIG.name}</span>
