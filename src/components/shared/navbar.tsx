@@ -86,8 +86,17 @@ export function Navbar() {
   const pathname = usePathname()
   const { isAuthenticated } = useAuth()
   const { recipe } = getFactoryState()
+  const isDirectoryProduct = recipe.homeLayout === 'listing-home' || recipe.homeLayout === 'classified-home'
 
-  const navigation = useMemo(() => SITE_CONFIG.tasks.filter((task) => task.enabled && task.key !== 'profile'), [])
+  const navigation = useMemo(
+    () =>
+      SITE_CONFIG.tasks.filter((task) => {
+        if (!task.enabled || task.key === 'profile') return false
+        if (isDirectoryProduct && task.key === 'classified') return false
+        return true
+      }),
+    [isDirectoryProduct],
+  )
   const primaryNavigation = navigation.slice(0, 5)
   const mobileNavigation = navigation.map((task) => ({
     name: task.label,
@@ -95,7 +104,6 @@ export function Navbar() {
     icon: taskIcons[task.key] || LayoutGrid,
   }))
   const primaryTask = SITE_CONFIG.tasks.find((task) => task.key === recipe.primaryTask && task.enabled) || primaryNavigation[0]
-  const isDirectoryProduct = recipe.homeLayout === 'listing-home' || recipe.homeLayout === 'classified-home'
 
   if (isDirectoryProduct) {
     const palette = moonDirectoryPalette
@@ -107,7 +115,7 @@ export function Navbar() {
             <div className="flex min-w-0 items-center gap-3">
               <Link href="/" className="flex min-w-0 items-center gap-3">
                 <div className={cn('flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden p-1.5', palette.logo)}>
-                  <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="44" height="44" className="h-full w-full object-contain" />
+                  <img src="/favicon.png?v=20260415" alt={`${SITE_CONFIG.name} logo`} width="44" height="44" className="h-full w-full object-contain" />
                 </div>
                 <div className="min-w-0">
                   <span className="block truncate text-base font-semibold tracking-[-0.02em]">{SITE_CONFIG.name}</span>
@@ -164,7 +172,7 @@ export function Navbar() {
           <div className="flex h-full flex-col">
             <Link href="/" className="flex items-center gap-3">
               <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden p-1.5', palette.logo)}>
-                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+                <img src="/favicon.png?v=20260415" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
               </div>
               <div className="min-w-0">
                 <span className="block truncate text-xl font-semibold tracking-[-0.03em]">{SITE_CONFIG.name}</span>
@@ -239,7 +247,7 @@ export function Navbar() {
           <div className="flex min-w-0 items-center gap-3">
             <Link href="/" className="flex min-w-0 items-center gap-3">
               <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden p-1.5', style.logo)}>
-                <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+                <img src="/favicon.png?v=20260415" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
               </div>
               <div className="min-w-0">
                 <span className="block truncate text-lg font-semibold">{SITE_CONFIG.name}</span>
@@ -286,7 +294,7 @@ export function Navbar() {
         <div className="flex h-full flex-col">
           <Link href="/" className="flex items-center gap-3">
             <div className={cn('flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden p-1.5', style.logo)}>
-              <img src="/favicon.png?v=20260401" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
+              <img src="/favicon.png?v=20260415" alt={`${SITE_CONFIG.name} logo`} width="48" height="48" className="h-full w-full object-contain" />
             </div>
             <div className="min-w-0">
               <span className="block truncate text-xl font-semibold">{SITE_CONFIG.name}</span>

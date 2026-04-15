@@ -135,8 +135,8 @@ function DirectoryHome({ primaryTask, enabledTasks, listingPosts, classifiedPost
 }) {
   const tone = getDirectoryTone(brandPack)
   const featuredListings = (listingPosts.length ? listingPosts : classifiedPosts).slice(0, 3)
-  const featuredTaskKey: TaskKey = listingPosts.length ? 'listing' : 'classified'
-  const quickRoutes = enabledTasks.slice(0, 4)
+  const featuredTaskKey: TaskKey = 'listing'
+  const quickRoutes = enabledTasks.filter((task) => task.key !== 'classified').slice(0, 4)
 
   return (
     <main>
@@ -228,14 +228,14 @@ function DirectoryHome({ primaryTask, enabledTasks, listingPosts, classifiedPost
             <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Moon Rocket Coin is a separate product, not a renamed template.</h2>
             <ul className={`mt-6 space-y-3 text-sm leading-7 ${tone.muted}`}>
               <li>Crimson-on-ink accents with pale pink surfaces—no purple “SaaS default.”</li>
-              <li>Listings and classifieds lead; every other task route still works by URL.</li>
+              <li>Listings lead the experience; supporting routes stay available by URL when enabled.</li>
               <li>Imagery supports facts; carousel advances every 3s only when multiple images exist.</li>
             </ul>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
-            {(profilePosts.length ? profilePosts : classifiedPosts).slice(0, 4).map((post) => {
+            {(profilePosts.length ? profilePosts : listingPosts.length ? listingPosts : classifiedPosts).slice(0, 4).map((post) => {
               const meta = getPostMeta(post)
-              const taskKey = resolveTaskKey(post.task, profilePosts.length ? 'profile' : 'classified')
+              const taskKey = profilePosts.length ? resolveTaskKey(post.task, 'profile') : 'listing'
               return (
                 <Link key={post.id} href={getTaskHref(taskKey, post.slug)} className={`overflow-hidden rounded-[1.8rem] ${tone.panel}`}>
                   <div className="relative h-44 overflow-hidden">
