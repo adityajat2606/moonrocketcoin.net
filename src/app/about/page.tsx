@@ -115,33 +115,6 @@ export default function AboutPage() {
           ))}
         </div>
       </div>
-
-      <div className="mt-16">
-        <div className="mb-8 flex items-center gap-3">
-          <Building2 className="h-5 w-5 text-[#cf0f47]" />
-          <h2 className="text-3xl font-semibold tracking-[-0.04em] text-neutral-950">People behind the product</h2>
-        </div>
-        <div className="grid gap-6 md:grid-cols-3">
-          {mockTeamMembers.map((member) => (
-            <Card key={member.id} className="border-black/10 bg-white shadow-[0_18px_48px_rgba(0,0,0,0.05)]">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3">
-                  <Avatar className="h-14 w-14 border border-black/10">
-                    <AvatarImage src={member.avatar} alt={member.name} />
-                    <AvatarFallback>{member.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <p className="text-sm font-semibold text-neutral-950">{member.name}</p>
-                    <p className="text-xs text-neutral-500">{member.role}</p>
-                  </div>
-                </div>
-                <p className="mt-4 text-sm leading-7 text-neutral-600">{member.bio}</p>
-                <p className="mt-3 text-xs font-medium text-neutral-500">{member.location}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
     </PageShell>
   );
 }
