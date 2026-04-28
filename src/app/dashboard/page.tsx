@@ -256,15 +256,15 @@ export default function DashboardPage() {
   )
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#f3f0f0] text-neutral-950">
       <NavbarShell />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-            <p className="text-muted-foreground mt-1">
+            <h1 className="text-3xl font-bold text-neutral-950">Dashboard</h1>
+            <p className="text-neutral-600 mt-1">
               Welcome back, {user?.name || "User"}! Here's what's happening.
             </p>
           </div>
@@ -318,11 +318,11 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="bg-card rounded-xl border border-border p-6"
+              className="bg-white rounded-xl border border-black/10 p-6"
             >
               <div className="flex items-center justify-between mb-4">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <stat.icon className="h-5 w-5 text-primary" />
+                <div className="w-10 h-10 rounded-lg bg-[#cf0f47]/10 flex items-center justify-center">
+                  <stat.icon className="h-5 w-5 text-[#cf0f47]" />
                 </div>
                 <Badge
                   variant="secondary"
@@ -340,8 +340,8 @@ export default function DashboardPage() {
                   {stat.change}
                 </Badge>
               </div>
-              <p className="text-2xl font-bold text-foreground">{stat.value}</p>
-              <p className="text-sm text-muted-foreground">{stat.title}</p>
+              <p className="text-2xl font-bold text-neutral-950">{stat.value}</p>
+              <p className="text-sm text-neutral-600">{stat.title}</p>
             </motion.div>
           ))}
         </div>
@@ -355,14 +355,14 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="bg-card rounded-xl border border-border p-6"
+              className="bg-white rounded-xl border border-black/10 p-6"
             >
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-lg font-semibold text-foreground">
+                  <h2 className="text-lg font-semibold text-neutral-950">
                     Views Overview
                   </h2>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-neutral-600">
                     Your content performance this week
                   </p>
                 </div>
@@ -387,12 +387,12 @@ export default function DashboardPage() {
                       <linearGradient id="colorViews" x1="0" y1="0" x2="0" y2="1">
                         <stop
                           offset="5%"
-                          stopColor="hsl(var(--primary))"
+                          stopColor="#cf0f47"
                           stopOpacity={0.3}
                         />
                         <stop
                           offset="95%"
-                          stopColor="hsl(var(--primary))"
+                          stopColor="#cf0f47"
                           stopOpacity={0}
                         />
                       </linearGradient>
@@ -401,24 +401,24 @@ export default function DashboardPage() {
                       dataKey="name"
                       axisLine={false}
                       tickLine={false}
-                      tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+                      tick={{ fill: "text-neutral-600", fontSize: 12 }}
                     />
                     <YAxis
                       axisLine={false}
                       tickLine={false}
-                      tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+                      tick={{ fill: "text-neutral-600", fontSize: 12 }}
                     />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: "hsl(var(--card))",
-                        border: "1px solid hsl(var(--border))",
+                        backgroundColor: "white",
+                        border: "1px solid rgba(0,0,0,0.1)",
                         borderRadius: "8px",
                       }}
                     />
                     <Area
                       type="monotone"
                       dataKey="views"
-                      stroke="hsl(var(--primary))"
+                      stroke="#cf0f47"
                       strokeWidth={2}
                       fillOpacity={1}
                       fill="url(#colorViews)"
@@ -433,14 +433,14 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="bg-card rounded-xl border border-border"
+              className="bg-white rounded-xl border border-black/10"
             >
               <Tabs defaultValue="articles" className="w-full">
                 <div className="px-6 pt-6">
-                  <h2 className="text-lg font-semibold text-foreground mb-4">
+                  <h2 className="text-lg font-semibold text-neutral-950 mb-4">
                     My Content
                   </h2>
-                  <TabsList className="w-full justify-start bg-muted/50">
+                  <TabsList className="w-full justify-start bg-[#ffeded]">
                     <TabsTrigger value="articles">Articles</TabsTrigger>
                     <TabsTrigger value="listings">Listings</TabsTrigger>
                     <TabsTrigger value="ads">Ads</TabsTrigger>
@@ -452,13 +452,13 @@ export default function DashboardPage() {
                     {myContent.articles.map((article) => (
                       <div
                         key={article.id}
-                        className="flex items-center justify-between p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
+                        className="flex items-center justify-between p-4 rounded-lg bg-[#ffeded] hover:bg-white transition-colors"
                       >
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-medium text-foreground truncate">
+                          <h3 className="font-medium text-neutral-950 truncate">
                             {article.title}
                           </h3>
-                          <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-4 mt-1 text-sm text-neutral-600">
                             <span>{article.date}</span>
                             <span>{article.views} views</span>
                             <span>{article.likes} likes</span>
@@ -518,13 +518,13 @@ export default function DashboardPage() {
                     {myContent.listings.map((listing) => (
                       <div
                         key={listing.id}
-                        className="flex items-center justify-between p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
+                        className="flex items-center justify-between p-4 rounded-lg bg-[#ffeded] hover:bg-white transition-colors"
                       >
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-medium text-foreground truncate">
+                          <h3 className="font-medium text-neutral-950 truncate">
                             {listing.title}
                           </h3>
-                          <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
+                          <div className="flex items-center gap-4 mt-1 text-sm text-neutral-600">
                             <span>{listing.date}</span>
                             <span>{listing.views} views</span>
                             <span>{listing.inquiries} inquiries</span>
@@ -584,14 +584,14 @@ export default function DashboardPage() {
                     {myContent.ads.map((ad) => (
                       <div
                         key={ad.id}
-                        className="flex items-center justify-between p-4 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
+                        className="flex items-center justify-between p-4 rounded-lg bg-[#ffeded] hover:bg-white transition-colors"
                       >
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-medium text-foreground truncate">
+                          <h3 className="font-medium text-neutral-950 truncate">
                             {ad.title}
                           </h3>
-                          <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
-                            <span className="font-medium text-foreground">
+                          <div className="flex items-center gap-4 mt-1 text-sm text-neutral-600">
+                            <span className="font-medium text-neutral-950">
                               {ad.price}
                             </span>
                             <span>{ad.views} views</span>
@@ -659,9 +659,9 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="bg-card rounded-xl border border-border p-6"
+              className="bg-white rounded-xl border border-black/10 p-6"
             >
-              <h2 className="text-lg font-semibold text-foreground mb-4">
+              <h2 className="text-lg font-semibold text-neutral-950 mb-4">
                 Content Distribution
               </h2>
               <div className="h-48">
@@ -673,19 +673,19 @@ export default function DashboardPage() {
                       dataKey="name"
                       axisLine={false}
                       tickLine={false}
-                      tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+                      tick={{ fill: "text-neutral-600", fontSize: 12 }}
                       width={80}
                     />
                     <Tooltip
                       contentStyle={{
-                        backgroundColor: "hsl(var(--card))",
-                        border: "1px solid hsl(var(--border))",
+                        backgroundColor: "white",
+                        border: "1px solid rgba(0,0,0,0.1)",
                         borderRadius: "8px",
                       }}
                     />
                     <Bar
                       dataKey="count"
-                      fill="hsl(var(--primary))"
+                      fill="#cf0f47"
                       radius={[0, 4, 4, 0]}
                     />
                   </BarChart>
@@ -698,10 +698,10 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5 }}
-              className="bg-card rounded-xl border border-border p-6"
+              className="bg-white rounded-xl border border-black/10 p-6"
             >
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-foreground">
+                <h2 className="text-lg font-semibold text-neutral-950">
                   Recent Activity
                 </h2>
                 <Button variant="ghost" size="sm" asChild>
@@ -716,14 +716,14 @@ export default function DashboardPage() {
                       <AvatarFallback>{activity.user.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm text-foreground">
+                      <p className="text-sm text-neutral-950">
                         <span className="font-medium">{activity.user}</span>{" "}
                         {activity.action}
                         {activity.target && (
                           <span className="font-medium"> {activity.target}</span>
                         )}
                       </p>
-                      <p className="text-xs text-muted-foreground mt-0.5">
+                      <p className="text-xs text-neutral-600 mt-0.5">
                         {activity.time}
                       </p>
                     </div>
@@ -737,9 +737,9 @@ export default function DashboardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="bg-card rounded-xl border border-border p-6"
+              className="bg-white rounded-xl border border-black/10 p-6"
             >
-              <h2 className="text-lg font-semibold text-foreground mb-4">
+              <h2 className="text-lg font-semibold text-neutral-950 mb-4">
                 Quick Actions
               </h2>
               <div className="space-y-2">

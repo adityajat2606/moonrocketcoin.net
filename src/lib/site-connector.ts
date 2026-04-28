@@ -12,6 +12,7 @@ export type SitePost = {
   publishedAt?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  task?: string | null;
 };
 
 export type SiteBootstrap = {
