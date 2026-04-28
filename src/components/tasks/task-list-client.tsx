@@ -1,42 +1,46 @@
-"use client";
+﻿"use client";
 
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { TaskPostCard } from "@/components/shared/task-post-card";
 import { buildPostUrl } from "@/lib/task-data";
 import { normalizeCategory, isValidCategory } from "@/lib/categories";
 import type { TaskKey } from "@/lib/site-config";
 import type { SitePost } from "@/lib/site-connector";
 import { getLocalPostsForTask } from "@/lib/local-posts";
-import { getFactoryState } from "@/design/factory/get-factory-state";
-import { getProductKind } from "@/design/factory/get-product-kind";
+import { cn } from "@/lib/utils";
+import { getDirectoryUiPreset } from "@/design/directory-ui";
 
 type Props = {
   task: TaskKey;
   initialPosts: SitePost[];
   category?: string;
+  className?: string;
 };
 
-export function TaskListClient({ task, initialPosts, category }: Props) {
+export function TaskListClient({ task, initialPosts, category, className }: Props) {
+  const [mounted, setMounted] = useState(false);
   const localPosts = getLocalPostsForTask(task);
-  const { recipe } = getFactoryState();
-  const productKind = getProductKind(recipe);
-  const directoryRowLayout =
-    productKind === "directory" && (task === "listing" || task === "classified");
+  const ui = getDirectoryUiPreset();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const merged = useMemo(() => {
     const bySlug = new Set<string>();
     const combined: Array<SitePost & { localOnly?: boolean; task?: TaskKey }> = [];
 
-    localPosts.forEach((post) => {
-      if (post.slug) {
-        bySlug.add(post.slug);
-      }
-      combined.push(post);
-    });
+    // Only include local posts after component is mounted to prevent hydration mismatch
+    if (mounted) {
+      localPosts.forEach((post) => {
+        if (post.slug) bySlug.add(post.slug);
+        combined.push(post);
+      });
+    }
 
     initialPosts.forEach((post) => {
       if (post.slug && bySlug.has(post.slug)) return;
-      combined.push(post);
+      combined.push(post as SitePost & { localOnly?: boolean; task?: TaskKey });
     });
 
     const normalizedCategory = category ? normalizeCategory(category) : "all";
@@ -56,29 +60,23 @@ export function TaskListClient({ task, initialPosts, category }: Props) {
           : "";
       return value === normalizedCategory;
     });
-  }, [category, initialPosts, localPosts]);
+  }, [category, initialPosts, localPosts, mounted]);
 
   if (!merged.length) {
     return (
-      <div className="rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">
+      <div className={cn("rounded-md border-2 border-dashed p-10 text-center text-sm", ui.softPanel, ui.muted)}>
         No posts yet for this section.
       </div>
     );
   }
 
+  const defaultGrid = task === "listing" ? ui.listGrid : "grid gap-6 sm:grid-cols-2 lg:grid-cols-4";
+
   return (
-    <div
-      className={
-        directoryRowLayout
-          ? "mx-auto flex max-w-5xl flex-col gap-5"
-          : "grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
-      }
-    >
+    <div className={cn(defaultGrid, className)}>
       {merged.map((post) => {
         const localOnly = (post as any).localOnly;
-        const href = localOnly
-          ? `/local/${task}/${post.slug}`
-          : buildPostUrl(task, post.slug);
+        const href = localOnly ? `/local/${task}/${post.slug}` : buildPostUrl(task, post.slug);
         return <TaskPostCard key={post.id} post={post} href={href} taskKey={task} />;
       })}
     </div>

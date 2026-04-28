@@ -39,6 +39,10 @@ const taskIcons: Record<TaskKey, any> = {
   classified: Tag,
   image: ImageIcon,
   profile: User,
+  social: undefined,
+  pdf: undefined,
+  org: undefined,
+  comment: undefined
 }
 
 function resolveTaskKey(value: unknown, fallback: TaskKey): TaskKey {
@@ -46,7 +50,7 @@ function resolveTaskKey(value: unknown, fallback: TaskKey): TaskKey {
   return fallback
 }
 
-function getTaskHref(task: TaskKey, slug: string) {
+function getTaskHref(task: TaskKey, slug: string): string {
   const route = SITE_CONFIG.tasks.find((item) => item.key === task)?.route || `/${task}`
   return `${route}/${slug}`
 }
@@ -509,7 +513,7 @@ export default async function HomePage() {
   ]
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-[#f3f0f0] text-neutral-950">
       <NavbarShell />
       <SchemaJsonLd data={schemaData} />
       {productKind === 'directory' ? (

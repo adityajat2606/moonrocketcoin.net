@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { ArrowRight, Building2, FileText, Image as ImageIcon, LayoutGrid, Tag, User } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
@@ -9,6 +9,7 @@ import { SITE_CONFIG, getTaskConfig, type TaskKey } from '@/lib/site-config'
 import { CATEGORY_OPTIONS, normalizeCategory } from '@/lib/categories'
 import { taskIntroCopy } from '@/config/site.content'
 import { getFactoryState } from '@/design/factory/get-factory-state'
+import { getDirectoryUiPreset } from '@/design/directory-ui'
 import { TASK_LIST_PAGE_OVERRIDE_ENABLED, TaskListPageOverride } from '@/overrides/task-list-page'
 
 const taskIcons: Record<TaskKey, any> = {
@@ -57,7 +58,7 @@ export async function TaskListPage({
   hideIntro?: boolean
   /** Overrides listing-directory form action and related paths so filters stay on the current URL. */
   surfacePath?: string
-  /** Hides “Explore results” / “Open search” in the listing-directory hero (e.g. alternate directory URL). */
+  /** Hides â€œExplore resultsâ€ / â€œOpen searchâ€ in the listing-directory hero (e.g. alternate directory URL). */
   hideListingHeroLinks?: boolean
   /** Forces hero + shell variant (e.g. `/classifieds` mirroring listing UI regardless of recipe). */
   layoutKeyOverride?: TaskListLayoutKey
@@ -296,3 +297,4 @@ export async function TaskListPage({
     </div>
   )
 }
+

@@ -8,7 +8,7 @@
   --mrc-deep: #cf0f47;
   --mrc-hot: #ff0b55;
   --mrc-pale: #ffdede;
-  --background: #fff8f8;
+  --background: #f3f0f0;
   --foreground: #0a0a0a;
   --card: #ffffff;
   --card-foreground: #0a0a0a;
@@ -19,7 +19,7 @@
   --secondary: #ffdede;
   --secondary-foreground: #1a0508;
   --muted: #fff0f0;
-  --muted-foreground: #4a3540;
+  --muted-foreground: #525252;
   --accent: #ff0b55;
   --accent-foreground: #ffffff;
   --destructive: #b30b3c;
@@ -134,7 +134,7 @@
     background-image:
       radial-gradient(ellipse 90% 60% at 0% -10%, rgba(207, 15, 71, 0.07), transparent 55%),
       radial-gradient(ellipse 70% 50% at 100% 0%, rgba(255, 11, 85, 0.06), transparent 45%),
-      linear-gradient(180deg, #fffbfb 0%, #fff5f5 38%, #ffefef 100%);
+      linear-gradient(180deg, #f3f0f0 0%, #f7f4f4 38%, #f8f5f5 100%);
     background-attachment: fixed;
   }
 
@@ -259,7 +259,7 @@ body[data-site-shell="classified-home"] {
   background-image:
     radial-gradient(ellipse 85% 55% at 0% 0%, rgba(207, 15, 71, 0.08), transparent 50%),
     radial-gradient(ellipse 60% 45% at 100% 8%, rgba(255, 11, 85, 0.05), transparent 42%),
-    linear-gradient(180deg, #f7f4f4 0%, #fff8f8 45%, #ffefef 100%);
+    linear-gradient(180deg, #f3f0f0 0%, #f7f4f4 45%, #f8f5f5 100%);
 }
 
 body[data-site-shell="directory"] {
@@ -298,7 +298,7 @@ body[data-site-shell="market"] {
 .factory-brand-directory {
   background-image:
     radial-gradient(ellipse 90% 55% at 0% -5%, rgba(207, 15, 71, 0.07), transparent 52%),
-    linear-gradient(180deg, #fff9f9 0%, #fff5f5 100%);
+    linear-gradient(180deg, #f3f0f0 0%, #f7f4f4 100%);
 }
 
 .factory-brand-studio {
@@ -311,6 +311,94 @@ body[data-site-shell="market"] {
   background-image:
     radial-gradient(ellipse 85% 50% at 100% 0%, rgba(255, 11, 85, 0.06), transparent 48%),
     linear-gradient(180deg, #f9f6f6 0%, #ffffff 100%);
+}
+
+.factory-palette-directory {
+  --background: #f3f0f0;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #cf0f47;
+  --primary-foreground: #ffffff;
+  --secondary: #ffdede;
+  --secondary-foreground: #1a0508;
+  --muted: #fff0f0;
+  --muted-foreground: #525252;
+  --accent: #ff0b55;
+  --accent-foreground: #ffffff;
+  --destructive: #b30b3c;
+  --destructive-foreground: #ffffff;
+  --border: color-mix(in srgb, #cf0f47 14%, #e8e0e2);
+  --input: #fff5f5;
+  --ring: #cf0f47;
+}
+
+.factory-palette-editorial {
+  --background: #fbf6ee;
+  --foreground: #241711;
+  --card: #fffdfa;
+  --card-foreground: #241711;
+  --popover: #fffdfa;
+  --popover-foreground: #241711;
+  --primary: #241711;
+  --primary-foreground: #fff1e2;
+  --secondary: #fff4e8;
+  --secondary-foreground: #241711;
+  --muted: #f5e7d7;
+  --muted-foreground: #6e5547;
+  --accent: #d4a574;
+  --accent-foreground: #241711;
+  --destructive: #8b4513;
+  --destructive-foreground: #fff1e2;
+  --border: #dcc8b7;
+  --input: #e6d6c8;
+  --ring: #241711;
+}
+
+.factory-palette-studio {
+  --background: #07101f;
+  --foreground: #ffffff;
+  --card: rgba(11, 18, 31, 0.78);
+  --card-foreground: #ffffff;
+  --popover: rgba(11, 18, 31, 0.78);
+  --popover-foreground: #ffffff;
+  --primary: #8df0c8;
+  --primary-foreground: #07111f;
+  --secondary: rgba(255, 255, 255, 0.06);
+  --secondary-foreground: #ffffff;
+  --muted: rgba(255, 255, 255, 0.06);
+  --muted-foreground: #94a3b8;
+  --accent: #8df0c8;
+  --accent-foreground: #07111f;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: rgba(207, 224, 224, 0.14);
+  --input: rgba(207, 224, 224, 0.2);
+  --ring: #8df0c8;
+}
+
+.factory-palette-market {
+  --background: #f9fafb;
+  --foreground: #111827;
+  --card: #ffffff;
+  --card-foreground: #111827;
+  --popover: #ffffff;
+  --popover-foreground: #111827;
+  --primary: #111827;
+  --primary-foreground: #ffffff;
+  --secondary: #edf7f5;
+  --secondary-foreground: #111827;
+  --muted: #f3f5f7;
+  --muted-foreground: #5b6470;
+  --accent: #0e7490;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #0f172a;
+  --input: #0f172a;
+  --ring: #111827;
 }
 
 .factory-font-editorial h1,
