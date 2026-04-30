@@ -1,5 +1,7 @@
-﻿import Link from 'next/link'
-import { Globe, Mail, MapPin, Phone, ShieldCheck, Tag, Calendar, ChevronRight } from 'lucide-react'
+﻿'use client'
+
+import Link from 'next/link'
+import { Globe, Mail, MapPin, Phone, ShieldCheck, Tag, Calendar, ChevronRight, X } from 'lucide-react'
 import { ContentImage } from '@/components/shared/content-image'
 import { SchemaJsonLd } from '@/components/seo/schema-jsonld'
 import { TaskPostCard } from '@/components/shared/task-post-card'
@@ -7,6 +9,9 @@ import type { SitePost } from '@/lib/site-connector'
 import type { TaskKey } from '@/lib/site-config'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { RichContent } from '@/components/shared/rich-content'
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { useState } from 'react'
 
 function getDirectoryTone() {
   return {
@@ -52,6 +57,7 @@ export function DirectoryTaskDetailPage({
   const services = Array.isArray(content.services) ? content.services.filter((item): item is string => typeof item === 'string') : []
   const businessTags = Array.isArray(post.tags) ? post.tags.filter((item): item is string => typeof item === 'string') : []
   const tone = getDirectoryTone()
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null)
   const schemaPayload = {
     '@context': 'https://schema.org',
     '@type': task === 'profile' ? 'Organization' : 'LocalBusiness',
@@ -94,7 +100,11 @@ export function DirectoryTaskDetailPage({
             </div>
             <div className="flex gap-4 overflow-x-auto pb-4 [-webkit-overflow-scrolling:touch]">
               {images.map((image, index) => (
-                <div key={image} className={`relative h-48 w-64 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-white shadow-lg sm:h-56 sm:w-72 ${tone.panel}`}>
+                <div 
+                  key={image} 
+                  className={`relative h-48 w-64 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-white shadow-lg sm:h-56 sm:w-72 ${tone.panel} cursor-pointer`}
+                  onClick={() => setLightboxImage(image)}
+                >
                   <ContentImage src={image} alt={`${post.title} photo ${index + 1}`} fill className="object-cover" />
                 </div>
               ))}
@@ -108,7 +118,9 @@ export function DirectoryTaskDetailPage({
             <article className={`p-6 sm:p-8 ${tone.panel}`}>
               <p className={`text-[11px] font-semibold uppercase tracking-[0.2em] ${tone.badge}`}>Profile summary</p>
               <h2 className={`mt-3 text-2xl font-semibold ${tone.title}`}>Details, context, and what to expect</h2>
-              <p className={`mt-5 max-w-4xl text-sm leading-8 ${tone.muted}`}>{description}</p>
+              <div className={`mt-5 max-w-4xl text-sm leading-8 ${tone.muted}`}>
+                <RichContent html={description} />
+              </div>
               {highlights.length ? (
                 <div className="mt-8 grid gap-3 sm:grid-cols-2">
                   {highlights.slice(0, 6).map((item) => (
@@ -243,6 +255,24 @@ export function DirectoryTaskDetailPage({
           </section>
         ) : null}
       </main>
+
+      {/* Image Lightbox */}
+      <Dialog open={!!lightboxImage} onOpenChange={() => setLightboxImage(null)}>
+        <DialogContent className="max-w-4xl p-0 bg-transparent border-none shadow-none">
+          <DialogTitle className="sr-only">Image Preview</DialogTitle>
+          <button
+            onClick={() => setLightboxImage(null)}
+            className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition"
+          >
+            <X className="h-6 w-6" />
+          </button>
+          {lightboxImage && (
+            <div className="relative w-full h-[80vh] rounded-lg overflow-hidden">
+              <ContentImage src={lightboxImage} alt={post.title} fill className="object-contain" />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
